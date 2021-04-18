@@ -5,7 +5,11 @@ import CustomButton from '../custom-button/custom-button.component';
 
 import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 
-import './sign-in.styles.scss';
+import {
+  SignInContainer,
+  SignInTitle,
+  ButtonsBarContainer
+} from './sign-in.styles';
 
 class SignIn extends Component {
   constructor(props) {
@@ -35,32 +39,35 @@ class SignIn extends Component {
 
   render() {
     return (
-      <div className='sign-in'>
-        <h2>I already have an account</h2>
-        <span>Sign In with your email and password</span>
+      <SignInContainer>
+        <SignInTitle>I already have an account</SignInTitle>
+        <span>Sign in with your email and password</span>
 
         <form onSubmit={this.handleSubmit}>
-          <FormInput 
-            name='email' 
-            type='email' 
+          <FormInput
+            name='email'
+            type='email'
+            handleChange={this.handleChange}
+            value={this.state.email}
             label='email'
-            value={this.state.email} 
+            required
+          />
+          <FormInput
+            name='password'
+            type='password'
+            value={this.state.password}
             handleChange={this.handleChange}
-            required />
-          <FormInput 
-            name='password' 
-            type='password'  
             label='password'
-            value={this.state.password} 
-            handleChange={this.handleChange}
-            required />
-
-          <div className='buttons'>
-            <CustomButton type='submit'>SIGN IN</CustomButton>
-            <CustomButton onClick={signInWithGoogle} isGoogleSignIn>SIGN IN WITH GOOGLE</CustomButton>
-          </div>
+            required
+          />
+          <ButtonsBarContainer>
+            <CustomButton type='submit'> Sign in </CustomButton>
+            <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+              Sign in with Google
+            </CustomButton>
+          </ButtonsBarContainer>
         </form>
-      </div>
+      </SignInContainer>
     );
   }
 }
